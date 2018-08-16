@@ -1,0 +1,37 @@
+﻿@page
+@model testQ2.Pages.Rooms.ContentModel
+@{
+    ViewData["Title"] = "Content";
+}
+
+<h2>Questions</h2>
+<a asp-page="../Questions/Create" asp-route-id="@Model.RoomID">
+    Add new question
+</a>
+<table class="tableOfQuestion">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions[0].Text)
+            </th>
+            <th>
+                Votes
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.Questions)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    0
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
