@@ -19,11 +19,27 @@ namespace testQ2.Pages.Rooms
 		}
 		public int RoomID { get; set; }
 		public IList<Question> Questions { get; set; }
+		public IList<Vote> Votes { get; set; }
+		public int[] Scores;
 
 		public async Task OnGetAsync(int id)
 		{
 			RoomID = id;
 			Questions = await _context.Question.Where(r => r.Room.ID == id).ToListAsync();
+			Votes = await _context.Vote.Where(r => r.Question.Room.ID == id).ToListAsync();
+			Scores = new int[Questions.Count()];
+			int count = 0;
+			foreach(Question q in Questions)
+			{
+				foreach(Vote v in Votes)
+				{
+					if(v.Question.ID == q.ID)
+					{
+						Scores[count] += v.score;
+					}
+				}
+				count++;
+			}
 		}
 	}
 }
